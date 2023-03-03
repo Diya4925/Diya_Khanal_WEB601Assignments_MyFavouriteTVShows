@@ -1,6 +1,10 @@
 {
   "name": "d-khanal-my-favourite-tvshows",
+<<<<<<< Updated upstream
   "version": "0.0.1",
+=======
+  "version": "0.0.4",
+>>>>>>> Stashed changes
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
