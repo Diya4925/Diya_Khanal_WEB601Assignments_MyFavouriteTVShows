@@ -1,4 +1,6 @@
-<app-create-content (addContentEvent)="addNewContent($event)"></app-create-content>
+<div *ngFor="let tvshows for tvshow" class="shadow">
+  <app-content-card [content]="tvshows"></app-content-card>
+</div>
 <div class="container">
     <div class="row">
       <div class="col-md-2"></div>
@@ -14,16 +16,16 @@
 </div>
 
 <div class="row">
-<h2 class="m-5">indoor</h2>
-<app-content-card class="col-md-4  mt-5 mx-1 card bg-success text-white" *ngFor="let item of contentArray | contentFilter:'indoor'; index as i; first as isFirst" [content]="item" [class.is-first]="isFirst"></app-content-card>
+<h2 class="m-5">Drama</h2>
+<app-content-card class="col-md-4  mt-5 mx-1 card bg-success text-white" *ngFor="let item of content | contentFilter:'indoor'; index as i; first as isFirst" [content]="item" [class.is-first]="isFirst"></app-content-card>
 </div>
 
 <div class="row">
-<h2 class="m-5">outdoor</h2>
-<app-content-card class="col-md-4  mt-5 mx-1 card bg-dark text-light" *ngFor="let item of contentArray | contentFilter:'outdoor'; index as i; first as isFirst" [content]="item" [class.is-first]="isFirst"></app-content-card>
+<h2 class="m-5">Comedy</h2>
+<app-content-card class="col-md-4  mt-5 mx-1 card bg-dark text-light" *ngFor="let item of content | contentFilter:'outdoor'; index as i; first as isFirst" [content]="item" [class.is-first]="isFirst"></app-content-card>
 </div>
 
 <div class="row">
-<h2 class="m-5">outdoor and indoor</h2>
-<app-content-card class="col-md-4  mt-5 mx-1 card bg-primary text-dark" *ngFor="let item of contentArray | contentFilter:'outdoor and indoor'; index as i; first as isFirst" [content]="item" [class.is-first]="isFirst"></app-content-card>
+<h2 class="m-5">Comdey and Romance</h2>
+<app-content-card class="col-md-4  mt-5 mx-1 card bg-primary text-dark" *ngFor="let item of content | contentFilter:'outdoor and indoor'; index as i; first as isFirst" [content]="item" [class.is-first]="isFirst"></app-content-card>
 </div>

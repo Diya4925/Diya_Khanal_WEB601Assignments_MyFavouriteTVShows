@@ -2,6 +2,7 @@ import { style } from '@angular/animations';
 import { Component , Input , OnInit } from '@angular/core';
 import { Content } from '../helper-files/content-interface';
 import { CreateContentComponent } from '../create-content/create-content.component';
+import { TvshowsserviceService } from '../tvshowsservice.service';
 
 
 @Component({
@@ -11,12 +12,17 @@ import { CreateContentComponent } from '../create-content/create-content.compone
 })
 export class ContentListComponent implements OnInit {
 
+  @Input() content:Content[];
+  @Input() tvshow:Content[];
+  @Input('ngModel')title: string;
+  name= "Diya Khanal";
+
     filteredString:any = '';
     searchTerm: string = '';
     message: string = '';
     messageColor: string = '';
   
-    contentItem:Content = {
+    /* contentItem:Content = {
   
       id:1,
       title:"The Grey's Anatomy",
@@ -97,36 +103,40 @@ export class ContentListComponent implements OnInit {
   
     
     contentArray: Content[];
-      constructor(){
-        this.contentArray = [this.contentItem];
+    */
+
+      constructor(private tvshowsservice: TvshowsserviceService){
+
+    this.title = '';
+    this.content = [];
+    this.tvshow = [];
+    } 
+
+   search() {
+     const content = this.content.find(c => c.title.toLowerCase().substring(0,  this.searchTerm.length) === this.searchTerm.toLowerCase());
+     console.log(this.searchTerm);
+     if (content) {
+       this.message = `Content with title "${this.searchTerm.toLowerCase()}" found.`;
+       this.messageColor = 'green';
+       
+     } else {
+       this.message = `Content with title "${this.searchTerm.toLowerCase()}" not found.`;
+       this.messageColor = 'red';
+     }
+   }
+   ngOnInit(){
+
+    this.tvshowsservice.getFavouriteTvshows().subscribe(content=> this.content = content);
+    this.tvshowsservice.getSpecificTvshow(1).subscribe((sport: Content[]) => this.tvshow = sport);
+    this.tvshowsservice.getSpecificTvshow(2).subscribe((sport: Content[]) => this.tvshow = sport);
+  } 
+
+  addNewContent(newContent:any){
+    this.content.push(newContent);
+    this.content = [...this.content];
+   // console.log(`Content Added Successfully : ${newContent.Title}`)
     
-        this.contentArray.push(this.contentItem2);
-        this.contentArray.push(this.contentItem3);
-        this.contentArray.push(this.contentItem4);
-        this.contentArray.push(this.contentItem5);
-        this.contentArray.push(this.contentItem6);
-       this.contentArray.push(this.contentItem7);
-  
-      }
-  
-      search() {
-        const content = this.contentArray.find(c => c.title.toLowerCase().substring(0,  this.searchTerm.length) === this.searchTerm.toLowerCase());
-        console.log(this.searchTerm);
-        if (content) {
-          this.message = `Content with title "${this.searchTerm.toLowerCase()}" found.`;
-          this.messageColor = 'green';
-          
-        } else {
-          this.message = `Content with title "${this.searchTerm.toLowerCase()}" not found.`;
-          this.messageColor = 'red';
-        }
-      }
-    
-ngOnInit(): void {
-    
-}
-addNewContent(newContent:any){
-  this.contentArray.push(newContent);
-  this.contentArray = [...this.contentArray];
- }
+   }
+ 
+   
 }
